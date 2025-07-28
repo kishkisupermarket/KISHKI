@@ -159,3 +159,6 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
 });
 
 updateCartCount();
+// عرض منتجات "Juice" تلقائيًا عند فتح الصفحة
+document.querySelector('[data-category="Juice"]')?.click();
+
