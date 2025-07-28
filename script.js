@@ -1,33 +1,30 @@
-<!-- تم إرسال index.html كامل في الرسالة السابقة -->
-<!-- الآن نرسل باقي الملفات هنا -->
-
-<!-- ✅ script.js كامل -->
-<script>
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 const defaultCart = [...cart];
 
 const allProducts = {
   Freezer: [
-    { name: "Frozen Pizza", price: 6, image: "https://images.unsplash.com/photo-1604908177080-bc5f1a4b2fbf", desc: "Cheesy frozen pizza" },
-    { name: "Frozen Vegetables", price: 4, image: "https://images.unsplash.com/photo-1608032076985-d1b2c8849ed1", desc: "Mixed green veggies" },
+    { name: "Frozen Pizza", price: 6, image: "https://images.pexels.com/photos/4109133/pexels-photo-4109133.jpeg", desc: "Cheesy frozen pizza" },
+    { name: "Frozen Fries", price: 3.5, image: "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg", desc: "Crispy French fries" },
   ],
   Juice: [
-    { name: "Apple Juice", price: 3, image: "https://images.unsplash.com/photo-1571689936275-7d4347c62a1e", desc: "100% Fresh Apple Juice" },
-    { name: "Mango Juice", price: 4, image: "https://images.unsplash.com/photo-1615485926460-c0baf8d45f73", desc: "Sweet Mango Juice" },
+    { name: "Apple Juice", price: 3, image: "https://images.pexels.com/photos/9684/food-drink-glass-apple.jpg", desc: "100% Fresh Apple Juice" },
+    { name: "Orange Juice", price: 4, image: "https://images.pexels.com/photos/1000084/pexels-photo-1000084.jpeg", desc: "Freshly squeezed orange juice" },
   ],
   Food: [
-    { name: "Rice 5kg", price: 10, image: "https://images.unsplash.com/photo-1585238342028-95c0de04bdea", desc: "Premium basmati rice" },
-    { name: "Olive Oil", price: 8, image: "https://images.unsplash.com/photo-1587740896339-3d5ddbd1b45b", desc: "Extra virgin olive oil" },
+    { name: "Rice 5kg", price: 10, image: "https://images.pexels.com/photos/4110256/pexels-photo-4110256.jpeg", desc: "Premium basmati rice" },
+    { name: "Pasta", price: 2.5, image: "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg", desc: "Durum wheat pasta" },
   ],
   Chicken: [
-    { name: "Chicken Breast", price: 5, image: "https://images.unsplash.com/photo-1605478071350-3d269962f521", desc: "Fresh boneless chicken" },
-    { name: "Chicken Wings", price: 6, image: "https://images.unsplash.com/photo-1606851091445-cbf4f1915f9c", desc: "Juicy halal wings" },
+    { name: "Chicken Breast", price: 5, image: "https://images.pexels.com/photos/6605215/pexels-photo-6605215.jpeg", desc: "Fresh boneless chicken" },
+    { name: "Chicken Legs", price: 4.5, image: "https://images.pexels.com/photos/4686823/pexels-photo-4686823.jpeg", desc: "Juicy halal chicken legs" },
   ],
   Lamb: [
-    { name: "Lamb Chops", price: 12, image: "https://images.unsplash.com/photo-1608989380845-3b9e8b3307fc", desc: "Tender lamb chops" },
+    { name: "Lamb Chops", price: 12, image: "https://images.pexels.com/photos/6164047/pexels-photo-6164047.jpeg", desc: "Tender lamb chops" },
+    { name: "Lamb Mince", price: 10, image: "https://images.pexels.com/photos/4393024/pexels-photo-4393024.jpeg", desc: "Fresh ground lamb" },
   ],
   Beef: [
-    { name: "Ground Beef", price: 9, image: "https://images.unsplash.com/photo-1603052877333-eac8f0175d38", desc: "Lean ground beef" },
+    { name: "Ground Beef", price: 9, image: "https://images.pexels.com/photos/4347941/pexels-photo-4347941.jpeg", desc: "Lean ground beef" },
+    { name: "Beef Steak", price: 11, image: "https://images.pexels.com/photos/1615197/pexels-photo-1615197.jpeg", desc: "Halal beef steak" },
   ]
 };
 
@@ -156,9 +153,7 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
   });
 });
 
-// Load Juice by default
 window.addEventListener("DOMContentLoaded", () => {
   document.querySelector('[data-category="Juice"]')?.click();
   updateCartCount();
 });
-</script>
