@@ -1,3 +1,4 @@
+<!-- ✅ Admin Dashboard with Edit Support -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +16,11 @@
 
     <!-- Product Form -->
     <div class="bg-white p-4 rounded shadow mb-8">
-      <h2 class="text-lg font-bold mb-4">Add Product</h2>
+      <h2 class="text-lg font-bold mb-4">Add / Edit Product</h2>
       <form id="productForm" class="grid gap-4 grid-cols-1 md:grid-cols-2">
+        <input type="hidden" id="editingIndex" />
         <input type="text" id="name" placeholder="Product Name" required class="border p-2 rounded" />
-        <input type="text" id="price" placeholder="Price" required class="border p-2 rounded" />
+        <input type="number" id="price" placeholder="Price" required class="border p-2 rounded" />
         <input type="text" id="image" placeholder="Image URL" required class="border p-2 rounded" />
         <select id="category" class="border p-2 rounded">
           <option value="Freezer">Freezer</option>
@@ -29,7 +31,7 @@
           <option value="Beef">Beef</option>
         </select>
         <textarea id="desc" placeholder="Description" class="col-span-1 md:col-span-2 border p-2 rounded"></textarea>
-        <button type="submit" class="col-span-1 md:col-span-2 bg-primary text-white py-2 rounded hover:bg-secondary">Add Product</button>
+        <button type="submit" class="col-span-1 md:col-span-2 bg-primary text-white py-2 rounded hover:bg-secondary">Save Product</button>
       </form>
     </div>
 
@@ -75,7 +77,8 @@
           <td class="border px-2 py-1">${p.name}</td>
           <td class="border px-2 py-1">$${p.price}</td>
           <td class="border px-2 py-1">${p.category}</td>
-          <td class="border px-2 py-1">
+          <td class="border px-2 py-1 space-x-2">
+            <button onclick="editProduct(${index})" class="text-blue-500 hover:underline">Edit</button>
             <button onclick="deleteProduct(${index})" class="text-red-500 hover:underline">Delete</button>
           </td>
         </tr>`;
@@ -93,8 +96,19 @@
       }
     }
 
+    function editProduct(index) {
+      const p = allProducts[index];
+      document.getElementById("editingIndex").value = index;
+      document.getElementById("name").value = p.name;
+      document.getElementById("price").value = p.price;
+      document.getElementById("image").value = p.image;
+      document.getElementById("category").value = p.category;
+      document.getElementById("desc").value = p.desc;
+    }
+
     document.getElementById("productForm").addEventListener("submit", function(e) {
       e.preventDefault();
+      const index = document.getElementById("editingIndex").value;
       const product = {
         name: document.getElementById("name").value.trim(),
         price: parseFloat(document.getElementById("price").value),
@@ -102,7 +116,11 @@
         category: document.getElementById("category").value,
         desc: document.getElementById("desc").value.trim(),
       };
-      allProducts.push(product);
+      if (index) {
+        allProducts[parseInt(index)] = product;
+      } else {
+        allProducts.push(product);
+      }
       localStorage.setItem("adminProducts", JSON.stringify(allProducts));
       renderTable();
       this.reset();
