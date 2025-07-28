@@ -1,7 +1,15 @@
+// ✅ Full Admin Integration With Edit Support
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 const defaultCart = [...cart];
 
-const allProducts = {
+// Get products from admin dashboard if available
+const adminProducts = JSON.parse(localStorage.getItem("adminProducts")) || null;
+
+const allProducts = adminProducts ? adminProducts.reduce((acc, p) => {
+  if (!acc[p.category]) acc[p.category] = [];
+  acc[p.category].push(p);
+  return acc;
+}, {}) : {
   Freezer: [
     { name: "Frozen Pizza", price: 6, image: "https://images.pexels.com/photos/4109133/pexels-photo-4109133.jpeg", desc: "Cheesy frozen pizza" },
     { name: "Frozen Fries", price: 3.5, image: "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg", desc: "Crispy French fries" },
