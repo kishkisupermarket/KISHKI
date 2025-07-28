@@ -17,8 +17,8 @@
         <input type="text" placeholder="CVV" class="w-1/2 border p-2 rounded" required />
       </div>
       <div class="flex justify-between gap-4">
-        <button type="button" onclick="history.back()" class="w-1/2 bg-gray-300 p-2 rounded">Back</button>
-        <button type="submit" class="w-1/2 bg-gray-300 text-black p-2 rounded hover:bg-gray-400 transition">Pay</button>
+        <button type="button" onclick="history.back()" class="w-1/2 bg-gray-300 text-black p-2 rounded hover:bg-gray-400">Back</button>
+        <button type="submit" class="w-1/2 bg-gray-300 text-black p-2 rounded hover:bg-gray-400">Pay</button>
       </div>
     </form>
   </div>
@@ -26,8 +26,7 @@
     document.getElementById("visaForm").addEventListener("submit", function(e) {
       e.preventDefault();
       localStorage.removeItem("cart");
-      alert("Payment successful!");
-      window.location.href = "index.html";
+      window.location.href = "thanks.html";
     });
   </script>
 </body>
