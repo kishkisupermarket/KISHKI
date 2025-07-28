@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kishki Halal Supermarket</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#c62828',
+            secondary: '#e53935'
+          },
+          fontFamily: {
+            sans: ['Poppins', 'sans-serif']
+          }
+        }
+      }
+    };
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+  <header class="bg-primary text-white p-4 shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <h1 class="text-xl font-bold">Kishki Halal Supermarket</h1>
+      <button id="view-cart" class="bg-white text-primary font-semibold px-4 py-1 rounded hover:bg-secondary hover:text-white transition">
+        🛒 Cart (<span id="cart-count">0</span>)
+      </button>
+    </div>
+    <nav class="mt-4">
+      <ul class="flex gap-6 justify-center text-sm font-semibold">
+        <li class="relative group">
+          <button class="hover:underline">Grocery</button>
+          <ul class="submenu absolute hidden group-hover:block bg-white text-primary rounded shadow mt-2 p-2 z-50">
+            <li><button class="filter-btn block px-2 py-1 w-full text-left" data-category="Freezer">Freezer</button></li>
+            <li><button class="filter-btn block px-2 py-1 w-full text-left" data-category="Juice">Juices</button></li>
+            <li><button class="filter-btn block px-2 py-1 w-full text-left" data-category="Food">Food</button></li>
+          </ul>
+        </li>
+        <li class="relative group">
+          <button class="hover:underline">Meat</button>
+          <ul class="submenu absolute hidden group-hover:block bg-white text-primary rounded shadow mt-2 p-2 z-50">
+            <li><button class="filter-btn block px-2 py-1 w-full text-left" data-category="Chicken">Chicken</button></li>
+            <li><button class="filter-btn block px-2 py-1 w-full text-left" data-category="Lamb">Lamb</button></li>
+            <li><button class="filter-btn block px-2 py-1 w-full text-left" data-category="Beef">Beef</button></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  <main class="max-w-7xl mx-auto p-4">
+    <h2 class="text-xl font-bold mb-4">Products</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 product-list"></div>
+  </main>
+  <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-40 flex items-start justify-center pt-24 z-50 hidden">
+    <div class="bg-white rounded-lg p-6 w-full max-w-md shadow relative">
+      <button class="absolute top-2 right-3 text-xl text-gray-500 close">×</button>
+      <h3 class="text-lg font-bold mb-4">Your Cart</h3>
+      <ul id="cart-items" class="text-sm space-y-2"></ul>
+      <div class="mt-4 space-y-1 text-sm">
+        <p id="cart-subtotal"></p>
+        <p id="cart-tax"></p>
+        <p id="cart-total" class="font-bold"></p>
+      </div>
+      <div class="mt-6 space-x-2 text-center">
+        <button id="pay-delivery" class="bg-primary text-white px-4 py-2 rounded">Pay on Delivery</button>
+        <button id="pay-online" class="bg-primary text-white px-4 py-2 rounded">Pay Online</button>
+      </div>
+    </div>
+  </div>
+  <div id="notification" class="fixed bottom-5 right-5 bg-primary text-white px-4 py-2 rounded shadow opacity-0 transition-opacity">Added to cart!</div>
+  <footer class="bg-gray-800 text-white text-sm text-center py-4 mt-10">
+    <p>468 ALBERT ST, WATERLOO, ON</p>
+    <p>Email: kishkisupermarket@hotmail.com</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
