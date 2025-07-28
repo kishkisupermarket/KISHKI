@@ -26,11 +26,17 @@
 
   <!-- Header -->
   <header class="bg-primary text-white p-4 shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex justify-between items-center">
-      <h1 class="text-xl font-bold">Kishki Halal Supermarket</h1>
-      <button id="view-cart" class="bg-white text-primary font-semibold px-4 py-1 rounded hover:bg-secondary hover:text-white transition">
-        🛒 Cart (<span id="cart-count">0</span>)
-      </button>
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="text-center sm:text-left">
+        <h1 class="text-xl font-bold">Kishki Halal Supermarket</h1>
+        <p class="text-sm font-light">100% Halal • Grocery & Meat</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="view-cart" class="bg-white text-primary font-semibold px-3 py-1 rounded hover:bg-secondary hover:text-white transition">
+          🛒 Cart (<span id="cart-count">0</span>)
+        </button>
+        <button id="refill-cart" class="bg-white text-primary px-3 py-1 rounded border hover:bg-gray-100 transition">🔁 Refill</button>
+      </div>
     </div>
     <nav class="mt-4">
       <ul class="flex gap-6 justify-center text-sm font-semibold">
@@ -53,6 +59,15 @@
       </ul>
     </nav>
   </header>
+
+  <!-- Hero Section -->
+  <section class="bg-white py-8 shadow-md">
+    <div class="max-w-7xl mx-auto text-center px-4">
+      <h2 class="text-2xl font-bold text-primary">مرحبًا بكم في Kishki Halal Supermarket</h2>
+      <p class="text-gray-600 mt-2">منتجات حلال طازجة، لحوم، أغذية مجمدة، وعصائر</p>
+      <img src="https://images.unsplash.com/photo-1586201375761-83865001e17b" alt="Grocery Banner" class="mt-4 mx-auto rounded shadow-md w-full max-h-64 object-cover" />
+    </div>
+  </section>
 
   <!-- Products -->
   <main class="max-w-7xl mx-auto p-4">
@@ -81,31 +96,41 @@
   <!-- Notification -->
   <div id="notification" class="fixed bottom-5 right-5 bg-primary text-white px-4 py-2 rounded shadow opacity-0 transition-opacity">Added to cart!</div>
 
+  <!-- WhatsApp Button -->
+  <a href="https://wa.me/1234567890" target="_blank"
+     class="fixed bottom-5 left-5 bg-green-500 text-white rounded-full p-3 shadow hover:bg-green-600 transition"
+     title="Contact us on WhatsApp">
+    📱
+  </a>
+
+  <!-- Google Map -->
+  <section class="mt-10 max-w-7xl mx-auto p-4">
+    <h3 class="text-lg font-bold text-primary mb-2">Visit Us</h3>
+    <iframe class="w-full h-64 rounded shadow"
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2795.708203858583!2d-80.52527598443903!3d43.46525597912656!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882bf47e122e04d3%3A0x1ec5372977e62f4d!2s468%20Albert%20St%2C%20Waterloo%2C%20ON!5e0!3m2!1sen!2sca!4v1690301020234!5m2!1sen!2sca"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
   <!-- Footer -->
   <footer class="bg-gray-800 text-white text-sm text-center py-4 mt-10">
     <p>468 ALBERT ST, WATERLOO, ON</p>
     <p>Email: kishkisupermarket@hotmail.com</p>
   </footer>
 
-  <!-- Main Script -->
+  <!-- Scripts -->
   <script src="script.js"></script>
-
-  <!-- Dropdown Menu Toggle Script -->
   <script>
+    // Toggle menus
     const toggles = document.querySelectorAll('.menu-toggle');
-    toggles.forEach((toggle, i) => {
-      toggle.addEventListener('click', (e) => {
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', e => {
         e.stopPropagation();
         const menu = toggle.nextElementSibling;
+        document.querySelectorAll('.submenu').forEach(m => m !== menu && m.classList.add('hidden'));
         menu.classList.toggle('hidden');
-
-        // close others
-        document.querySelectorAll('.submenu').forEach(sub => {
-          if (sub !== menu) sub.classList.add('hidden');
-        });
       });
     });
-
     document.addEventListener('click', () => {
       document.querySelectorAll('.submenu').forEach(m => m.classList.add('hidden'));
     });
