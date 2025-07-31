@@ -39,25 +39,30 @@
     </form>
   </div>
 
-  <!-- رسالة شكر -->
+  <!-- رسالة الشكر -->
   <div id="thankYouMessage" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
-    <div class="bg-white text-center p-6 rounded shadow-lg max-w-sm">
+    <div class="bg-white text-center p-6 rounded shadow-lg max-w-sm cursor-pointer">
       <h2 class="text-xl font-bold text-primary mb-2">Thank you for your payment!</h2>
       <p class="text-sm text-gray-600">Your transaction was successful.</p>
+      <p class="text-xs text-gray-400 mt-2">(Click anywhere to continue)</p>
     </div>
   </div>
 
+  <!-- Script -->
   <script>
-  document.getElementById("paymentForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-    localStorage.removeItem("cart");
-    document.getElementById("thankYouMessage").classList.remove("hidden");
-  });
+    const form = document.getElementById("paymentForm");
+    const thankYou = document.getElementById("thankYouMessage");
 
-  document.getElementById("thankYouMessage").addEventListener("click", function () {
-    document.getElementById("thankYouMessage").classList.add("hidden");
-    window.location.href = "index.html";
-  });
-</script>
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      localStorage.removeItem("cart");
+      thankYou.classList.remove("hidden");
+    });
+
+    thankYou.addEventListener("click", function () {
+      thankYou.classList.add("hidden");
+      window.location.href = "index.html";
+    });
+  </script>
 </body>
 </html>
