@@ -26,50 +26,9 @@
     </div>
 
     <!-- Product Form -->
-    <div class="bg-white p-6 rounded shadow mb-8">
+    <div id="productFormWrapper" class="bg-white p-6 rounded shadow mb-8">
       <h2 class="text-xl font-semibold mb-4">Add / Edit Product</h2>
       <form id="productForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input type="hidden" id="editingIndex" />
         <input type="text" id="name" placeholder="Product Name" required class="border p-2 rounded" />
-        <input type="number" id="price" placeholder="Price" required class="border p-2 rounded" />
-        <input type="text" id="image" placeholder="Image URL" required class="border p-2 rounded" />
-        <input type="text" id="barcode" placeholder="Barcode" required class="border p-2 rounded" />
-        <select id="category" class="border p-2 rounded">
-          <option value="Freezer">Freezer</option>
-          <option value="Juice">Juice</option>
-          <option value="Food">Food</option>
-          <option value="Chicken">Chicken</option>
-          <option value="Lamb">Lamb</option>
-          <option value="Beef">Beef</option>
-        </select>
-        <textarea id="desc" placeholder="Description" class="col-span-1 md:col-span-2 border p-2 rounded"></textarea>
-        <button type="submit" class="col-span-1 md:col-span-2 bg-green-600 text-white py-2 rounded hover:bg-green-700">Save Product</button>
-      </form>
-    </div>
-
-    <!-- Products Table -->
-    <div class="bg-white p-4 rounded shadow">
-      <h2 class="text-xl font-semibold mb-4">Product List</h2>
-      <div id="productTable" class="overflow-x-auto text-sm"></div>
-    </div>
-  </div>
-
-  <script>
-    // Redirect if not logged in
-    if (!localStorage.getItem("loggedInAdmin")) {
-      window.location.href = "login.html";
-    }
-
-    const productTable = document.getElementById("productTable");
-    let allProducts = JSON.parse(localStorage.getItem("adminProducts")) || [];
-
-    function renderTable() {
-      if (allProducts.length === 0) {
-        productTable.innerHTML = '<p class="text-gray-500">No products yet.</p>';
-        return;
-      }
-
-      let html = '<table class="min-w-full text-left"><thead><tr>' +
-        '<th class="border px-3 py-2">Name</th>' +
-        '<th class="border px-3 py-2">Price</th>' +
-        '<
+        <input type="number" id="price" placeholde
