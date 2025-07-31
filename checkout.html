@@ -45,15 +45,16 @@
   </div>
 
   <script>
-    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      localStorage.removeItem("cart");
-      document.getElementById("thankYouMessage").classList.remove("hidden");
-    });
+  document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    localStorage.removeItem("cart");
+    document.getElementById("thankYouMessage").classList.remove("hidden");
+  });
 
-    document.getElementById("thankYouMessage").addEventListener("click", function () {
-      document.getElementById("thankYouMessage").classList.add("hidden");
-    });
-  </script>
+  document.getElementById("thankYouMessage").addEventListener("click", function () {
+    document.getElementById("thankYouMessage").classList.add("hidden");
+    window.location.href = "index.html";
+  });
+</script>
 </body>
 </html>
