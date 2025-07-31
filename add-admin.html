@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add New Admin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+  <div class="bg-white shadow-md p-6 rounded max-w-md w-full">
+    <h2 class="text-2xl font-bold mb-4 text-center">Add New Admin</h2>
+
+    <form id="adminForm" class="space-y-4">
+      <input type="text" id="newUsername" placeholder="Username" required class="w-full border p-2 rounded" />
+      <input type="password" id="newPassword" placeholder="Password" required class="w-full border p-2 rounded" />
+
+      <div class="space-y-2">
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" id="canAdd" class="w-4 h-4" />
+          <span>Can Add Products</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" id="canEdit" class="w-4 h-4" />
+          <span>Can Edit Products</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" id="canDelete" class="w-4 h-4" />
+          <span>Can Delete Products</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" id="canAddUser" class="w-4 h-4" />
+          <span>Can Add Users</span>
+        </label>
+        <label class="flex items-center space-x-2">
+          <input type="checkbox" id="canDeleteUser" class="w-4 h-4" />
+          <span>Can Delete Users</span>
+        </label>
+      </div>
+
+      <button type="button" id="selectAll" class="bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300 w-full">
+        Select All Permissions
+      </button>
+
+      <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Add Admin</button>
+    </form>
+
+    <p id="successMsg" class="text-green-600 text-sm mt-3 hidden text-center">Admin added successfully.</p>
+    <div class="text-center mt-4">
+      <a href="dashboard.html" class="text-blue-600 hover:underline">← Back to Dashboard</a>
+    </div>
+  </div>
+
+  <script>
+    const current = localStorage.getItem("loggedInAdmin");
+    if (!current) {
+      window.location.href = "login.html";
+    }
+
+    const form = document.getElementById("adminForm");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("newUsername").value.trim();
+      const password = document.getElementById("newPassword").value.trim();
+
+      const newAdmin = {
+        username,
+        password,
+        canAdd: document.getElementById("canAdd").checked,
+        canEdit: document.getElementById("canEdit").checked,
+        canDelete: document.getElementById("canDelete").checked,
+        canAddUser: document.getElementById("canAddUser").checked,
+        canDeleteUser: document.getElementById("canDeleteUser").checked,
+      };
+
+      const admins = JSON.parse(localStorage.getItem("admins")) || [];
+      const exists = admins.find(a => a.username === username);
+
+      if (exists) {
+        alert("Username already exists.");
+        return;
+      }
+
+      admins.push(newAdmin);
+      localStorage.setItem("admins", JSON.stringify(admins));
+
+      successMsg.classList.remove("hidden");
+      form.reset();
+    });
+
+    // زر تحديد كل الصلاحيات
+    document.getElementById("selectAll").addEventListener("click", () => {
+      ["canAdd", "canEdit", "canDelete", "canAddUser", "canDeleteUser"].forEach(id => {
+        document.getElementById(id).checked = true;
+      });
+    });
+  </script>
+</body>
+</html>
