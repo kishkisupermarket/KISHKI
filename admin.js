@@ -21,7 +21,7 @@ document.getElementById("logout").addEventListener("click", () => {
 // Search product by barcode
 document.getElementById("searchBtn").addEventListener("click", () => {
   const barcode = document.getElementById("barcodeSearch").value.trim();
-  const products = JSON.parse(localStorage.getItem("products")) || [];
+  const products = JSON.parse(localStorage.getItem("adminProducts")) || [];
   const found = products.find(p => p.barcode === barcode);
   const resultDiv = document.getElementById("searchResult");
   if (found) {
@@ -54,7 +54,7 @@ document.getElementById("saveProduct").addEventListener("click", () => {
     return;
   }
 
-  let products = JSON.parse(localStorage.getItem("products")) || [];
+  let products = JSON.parse(localStorage.getItem("adminProducts")) || [];
   const existingIndex = products.findIndex(p => p.barcode === barcode);
 
   if (existingIndex >= 0) {
@@ -63,7 +63,7 @@ document.getElementById("saveProduct").addEventListener("click", () => {
     products.push({ name, price, barcode });
   }
 
-  localStorage.setItem("products", JSON.stringify(products));
+  localStorage.setItem("adminProducts", JSON.stringify(products));
   alert("Product saved!");
 });
 
