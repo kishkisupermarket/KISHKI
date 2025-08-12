@@ -2,67 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Payment - Kishki Halal Supermarket</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payment - Kishki Halal</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            primary: '#c62828',
-            secondary: '#e53935',
-          },
-          fontFamily: {
-            sans: ['Poppins', 'sans-serif'],
-          },
-        },
-      },
-    }
-  </script>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen p-4">
-  <div class="max-w-xl mx-auto bg-white p-6 rounded shadow">
-    <h1 class="text-2xl font-bold text-primary mb-6">Payment</h1>
+<body class="bg-gray-100 font-sans p-4">
 
-    <form id="paymentForm" class="space-y-4">
-      <input type="text" placeholder="Cardholder Name" required class="w-full border p-2 rounded" />
-      <input type="text" placeholder="Card Number (Visa)" pattern="4[0-9]{12}(?:[0-9]{3})?" required class="w-full border p-2 rounded" />
-      <div class="flex gap-4">
-        <input type="text" placeholder="MM/YY" required class="w-full border p-2 rounded" />
-        <input type="text" placeholder="CVC" required class="w-full border p-2 rounded" />
-      </div>
-      <div class="flex justify-between mt-6">
-        <a href="index.html" class="bg-primary text-white px-4 py-2 rounded">← Back</a>
-        <button type="submit" class="bg-primary text-white px-6 py-2 rounded">Confirm Payment</button>
-      </div>
-    </form>
-  </div>
+  <h1 class="text-2xl font-bold mb-4">Payment</h1>
 
-  <!-- رسالة الشكر -->
-  <div id="thankYouMessage" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50">
-    <div class="bg-white text-center p-6 rounded shadow-lg max-w-sm cursor-pointer">
-      <h2 class="text-xl font-bold text-primary mb-2">Thank you for your payment!</h2>
-      <p class="text-sm text-gray-600">Your transaction was successful.</p>
-      <p class="text-xs text-gray-400 mt-2">(Click anywhere to continue)</p>
-    </div>
-  </div>
+  <p>هذه الصفحة مخصصة لخيار الدفع.</p>
 
-  <!-- Script -->
-  <script>
-    const form = document.getElementById("paymentForm");
-    const thankYou = document.getElementById("thankYouMessage");
-
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      localStorage.removeItem("cart");
-      thankYou.classList.remove("hidden");
-    });
-
-    thankYou.addEventListener("click", function () {
-      thankYou.classList.add("hidden");
-      window.location.href = "index.html";
-    });
-  </script>
 </body>
 </html>
