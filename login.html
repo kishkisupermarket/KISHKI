@@ -2,26 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Login</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-
-  <div class="bg-white shadow-md rounded p-6 w-full max-w-sm">
-    <h2 class="text-2xl font-bold mb-4 text-center text-gray-800">Admin Login</h2>
-    
+<body class="bg-gray-100 font-sans flex items-center justify-center h-screen">
+  <div class="bg-white p-6 rounded shadow-md w-full max-w-sm">
+    <h2 class="text-2xl font-bold text-center text-primary mb-4">Admin Login</h2>
     <form id="loginForm" class="space-y-4">
       <input type="text" id="username" placeholder="Username" required class="w-full border p-2 rounded" />
       <input type="password" id="password" placeholder="Password" required class="w-full border p-2 rounded" />
       <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
     </form>
-
-    <p id="error" class="text-red-500 text-center mt-3 hidden">Invalid username or password.</p>
+    <p id="error" class="text-red-500 text-sm mt-2 hidden text-center">Invalid credentials</p>
   </div>
 
   <script>
-    // إنشاء مدير افتراضي إذا لا يوجد
     if (!localStorage.getItem('admins')) {
       localStorage.setItem('admins', JSON.stringify([
         {
@@ -29,7 +25,9 @@
           password: 'admin123',
           canAdd: true,
           canEdit: true,
-          canDelete: true
+          canDelete: true,
+          canAddUser: true,
+          canDeleteUser: true
         }
       ]));
     }
@@ -40,16 +38,14 @@
       const password = document.getElementById("password").value.trim();
       const admins = JSON.parse(localStorage.getItem("admins")) || [];
 
-      const matched = admins.find(a => a.username === username && a.password === password);
-
-      if (matched) {
-        localStorage.setItem("loggedInAdmin", username);
+      const found = admins.find(admin => admin.username === username && admin.password === password);
+      if (found) {
+        localStorage.setItem("loggedInAdmin", JSON.stringify(found));
         window.location.href = "dashboard.html";
       } else {
         document.getElementById("error").classList.remove("hidden");
       }
     });
   </script>
-
 </body>
 </html>
