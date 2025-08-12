@@ -6,176 +6,132 @@
   <title>Admin Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 font-sans min-h-screen p-6">
+<body class="bg-gray-100 min-h-screen">
+  <div class="p-4 bg-white shadow flex justify-between">
+    <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+    <button id="logout" class="bg-red-600 text-white px-4 py-2 rounded">Logout</button>
+  </div>
 
-  <div class="max-w-6xl mx-auto">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
-      <button onclick="logout()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Logout</button>
-    </div>
-
-    <!-- Search by Barcode -->
-    <div class="bg-white p-4 rounded shadow mb-6">
-      <h2 class="text-lg font-semibold mb-2">Search Product by Barcode</h2>
-      <form id="barcodeSearchForm" class="flex gap-2">
-        <input type="text" id="barcodeSearch" placeholder="Enter barcode..." class="border p-2 rounded w-full" required />
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
-      </form>
-      <p id="barcodeSearchResult" class="text-red-500 text-sm mt-2 hidden">Product not found.</p>
-    </div>
-
-    <!-- Product Form -->
-    <div id="productFormWrapper" class="bg-white p-6 rounded shadow mb-8">
-      <h2 class="text-xl font-semibold mb-4">Add / Edit Product</h2>
-      <form id="productForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input type="hidden" id="editingIndex" />
-        <input type="text" id="name" placeholder="Product Name" required class="border p-2 rounded" />
-        <input type="number" id="price" placeholder="Price" required class="border p-2 rounded" />
-        <input type="text" id="image" placeholder="Image URL" required class="border p-2 rounded" />
-        <input type="text" id="barcode" placeholder="Barcode" required class="border p-2 rounded" />
-        <select id="category" class="border p-2 rounded">
-          <option value="Freezer">Freezer</option>
-          <option value="Juice">Juice</option>
-          <option value="Food">Food</option>
-          <option value="Chicken">Chicken</option>
-          <option value="Lamb">Lamb</option>
-          <option value="Beef">Beef</option>
-        </select>
-        <textarea id="desc" placeholder="Description" class="col-span-1 md:col-span-2 border p-2 rounded"></textarea>
-        <button type="submit" class="col-span-1 md:col-span-2 bg-green-600 text-white py-2 rounded hover:bg-green-700">Save Product</button>
-      </form>
-    </div>
-
-    <!-- Products Table -->
+  <div class="p-4 space-y-6">
+    <!-- بحث بالباركود -->
     <div class="bg-white p-4 rounded shadow">
-      <h2 class="text-xl font-semibold mb-4">Product List</h2>
-      <div id="productTable" class="overflow-x-auto text-sm"></div>
+      <h2 class="text-lg font-bold mb-2">Search Product by Barcode</h2>
+      <input type="text" id="barcodeSearch" placeholder="Enter or scan barcode" class="border p-2 rounded w-full mb-2"/>
+      <button id="searchBtn" class="bg-blue-600 text-white px-4 py-2 rounded">Search</button>
+      <div id="searchResult" class="mt-4"></div>
+    </div>
+
+    <!-- إضافة / تعديل منتج -->
+    <div id="productFormContainer" class="bg-white p-4 rounded shadow hidden">
+      <h2 class="text-lg font-bold mb-2">Add / Edit Product</h2>
+      <input type="text" id="productName" placeholder="Product Name" class="border p-2 rounded w-full mb-2"/>
+      <input type="number" id="productPrice" placeholder="Product Price" class="border p-2 rounded w-full mb-2"/>
+      <input type="text" id="productBarcode" placeholder="Product Barcode" class="border p-2 rounded w-full mb-2"/>
+      <button id="saveProduct" class="bg-green-600 text-white px-4 py-2 rounded">Save Product</button>
+    </div>
+
+    <!-- إدارة المستخدمين -->
+    <div id="userManagement" class="bg-white p-4 rounded shadow hidden">
+      <h2 class="text-lg font-bold mb-2">User Management</h2>
+      <input type="text" id="newUsername" placeholder="Username" class="border p-2 rounded w-full mb-2"/>
+      <input type="password" id="newPassword" placeholder="Password" class="border p-2 rounded w-full mb-2"/>
+      
+      <div class="space-y-2">
+        <label><input type="checkbox" id="permAdd"> Can Add Products</label><br>
+        <label><input type="checkbox" id="permEdit"> Can Edit Products</label><br>
+        <label><input type="checkbox" id="permDelete"> Can Delete Products</label><br>
+        <label><input type="checkbox" id="permAddUser"> Can Add Users</label><br>
+        <label><input type="checkbox" id="permDeleteUser"> Can Delete Users</label><br>
+        <button id="selectAllPerms" class="bg-gray-500 text-white px-2 py-1 rounded">Select All Permissions</button>
+      </div>
+
+      <button id="addUser" class="bg-blue-600 text-white px-4 py-2 rounded mt-2">Add User</button>
     </div>
   </div>
 
   <script>
-    // التحقق من الدخول
-    const adminData = localStorage.getItem("loggedInAdmin");
-    if (!adminData) {
+    const loggedInAdmin = JSON.parse(localStorage.getItem("loggedInAdmin"));
+    if (!loggedInAdmin) {
       window.location.href = "login.html";
     }
 
-    const admin = JSON.parse(adminData); // يحتوي على canAdd, canEdit, canDelete
-    const productTable = document.getElementById("productTable");
-    const productFormWrapper = document.getElementById("productFormWrapper");
-    const productForm = document.getElementById("productForm");
-    let allProducts = JSON.parse(localStorage.getItem("adminProducts")) || [];
-
-    // عرض المنتجات
-    function renderTable() {
-      if (allProducts.length === 0) {
-        productTable.innerHTML = '<p class="text-gray-500">No products yet.</p>';
-        return;
-      }
-
-      let html = '<table class="min-w-full text-left"><thead><tr>' +
-        '<th class="border px-3 py-2">Name</th>' +
-        '<th class="border px-3 py-2">Price</th>' +
-        '<th class="border px-3 py-2">Category</th>' +
-        '<th class="border px-3 py-2">Barcode</th>' +
-        '<th class="border px-3 py-2">Actions</th></tr></thead><tbody>';
-
-      allProducts.forEach((p, index) => {
-        let actions = "";
-        if (admin.canEdit) {
-          actions += `<button onclick="editProduct(${index})" class="text-blue-600 hover:underline">Edit</button>`;
-        }
-        if (admin.canDelete) {
-          actions += `<button onclick="deleteProduct(${index})" class="text-red-600 hover:underline ml-2">Delete</button>`;
-        }
-
-        html += `<tr>
-          <td class="border px-3 py-2">${p.name}</td>
-          <td class="border px-3 py-2">$${p.price.toFixed(2)}</td>
-          <td class="border px-3 py-2">${p.category}</td>
-          <td class="border px-3 py-2">${p.barcode}</td>
-          <td class="border px-3 py-2">${actions}</td>
-        </tr>`;
-      });
-
-      html += '</tbody></table>';
-      productTable.innerHTML = html;
+    // عرض أجزاء الصفحة بناءً على الصلاحيات
+    if (loggedInAdmin.canAdd || loggedInAdmin.canEdit) {
+      document.getElementById("productFormContainer").classList.remove("hidden");
+    }
+    if (loggedInAdmin.canAddUser || loggedInAdmin.canDeleteUser) {
+      document.getElementById("userManagement").classList.remove("hidden");
     }
 
-    function editProduct(index) {
-      const p = allProducts[index];
-      document.getElementById("editingIndex").value = index;
-      document.getElementById("name").value = p.name;
-      document.getElementById("price").value = p.price;
-      document.getElementById("image").value = p.image;
-      document.getElementById("barcode").value = p.barcode || "";
-      document.getElementById("category").value = p.category;
-      document.getElementById("desc").value = p.desc;
-    }
-
-    function deleteProduct(index) {
-      if (confirm("Are you sure you want to delete this product?")) {
-        allProducts.splice(index, 1);
-        localStorage.setItem("adminProducts", JSON.stringify(allProducts));
-        renderTable();
-      }
-    }
-
-    productForm.addEventListener("submit", function(e) {
-      e.preventDefault();
-      if (!admin.canAdd) {
-        alert("You do not have permission to add products.");
-        return;
-      }
-
-      const index = document.getElementById("editingIndex").value;
-      const product = {
-        name: document.getElementById("name").value.trim(),
-        price: parseFloat(document.getElementById("price").value),
-        image: document.getElementById("image").value.trim(),
-        barcode: document.getElementById("barcode").value.trim(),
-        category: document.getElementById("category").value,
-        desc: document.getElementById("desc").value.trim()
-      };
-
-      if (index) {
-        allProducts[parseInt(index)] = product;
-      } else {
-        allProducts.push(product);
-      }
-
-      localStorage.setItem("adminProducts", JSON.stringify(allProducts));
-      renderTable();
-      this.reset();
-    });
-
-    document.getElementById("barcodeSearchForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const barcode = document.getElementById("barcodeSearch").value.trim();
-      const index = allProducts.findIndex(p => p.barcode === barcode);
-      const msg = document.getElementById("barcodeSearchResult");
-
-      if (index !== -1) {
-        msg.classList.add("hidden");
-        editProduct(index);
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      } else {
-        msg.classList.remove("hidden");
-      }
-    });
-
-    function logout() {
+    document.getElementById("logout").addEventListener("click", () => {
       localStorage.removeItem("loggedInAdmin");
       window.location.href = "login.html";
-    }
+    });
 
-    // إخفاء النموذج لو ما عنده صلاحية إضافة
-    if (!admin.canAdd) {
-      productFormWrapper.classList.add("opacity-50", "pointer-events-none");
-    }
+    // البحث بالباركود
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      const barcode = document.getElementById("barcodeSearch").value.trim();
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+      const found = products.find(p => p.barcode === barcode);
+      const resultDiv = document.getElementById("searchResult");
+      if (found) {
+        resultDiv.innerHTML = `<p>Found: ${found.name} - $${found.price}</p>`;
+      } else {
+        resultDiv.innerHTML = `<p class="text-red-500">No product found</p>`;
+      }
+    });
 
-    renderTable();
+    // حفظ منتج
+    document.getElementById("saveProduct").addEventListener("click", () => {
+      const name = document.getElementById("productName").value.trim();
+      const price = parseFloat(document.getElementById("productPrice").value.trim());
+      const barcode = document.getElementById("productBarcode").value.trim();
+
+      if (!name || !price || !barcode) {
+        alert("Please fill all fields");
+        return;
+      }
+
+      let products = JSON.parse(localStorage.getItem("products")) || [];
+      const existingIndex = products.findIndex(p => p.barcode === barcode);
+      if (existingIndex >= 0) {
+        products[existingIndex] = { name, price, barcode };
+      } else {
+        products.push({ name, price, barcode });
+      }
+      localStorage.setItem("products", JSON.stringify(products));
+      alert("Product saved!");
+    });
+
+    // اختيار كل الصلاحيات
+    document.getElementById("selectAllPerms").addEventListener("click", () => {
+      ["permAdd","permEdit","permDelete","permAddUser","permDeleteUser"].forEach(id => {
+        document.getElementById(id).checked = true;
+      });
+    });
+
+    // إضافة مستخدم جديد
+    document.getElementById("addUser").addEventListener("click", () => {
+      const username = document.getElementById("newUsername").value.trim();
+      const password = document.getElementById("newPassword").value.trim();
+      if (!username || !password) {
+        alert("Please enter username and password");
+        return;
+      }
+
+      let admins = JSON.parse(localStorage.getItem("admins")) || [];
+      admins.push({
+        username,
+        password,
+        canAdd: document.getElementById("permAdd").checked,
+        canEdit: document.getElementById("permEdit").checked,
+        canDelete: document.getElementById("permDelete").checked,
+        canAddUser: document.getElementById("permAddUser").checked,
+        canDeleteUser: document.getElementById("permDeleteUser").checked
+      });
+      localStorage.setItem("admins", JSON.stringify(admins));
+      alert("User added!");
+    });
   </script>
 </body>
 </html>
