@@ -1,25 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kishki Halal Supermarket</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    .primary-btn {
+      background-color: #d32f2f;
+      color: white;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+    .primary-btn:hover {
+      background-color: #b71c1c;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 font-sans">
+<body class="bg-gray-50 font-sans">
 
-  <header class="bg-green-700 text-white p-4">
-    <h1 class="text-3xl font-bold">Kishki Halal Supermarket</h1>
+  <!-- Banner -->
+  <header class="bg-red-600 text-white text-center py-6 shadow-md">
+    <h1 class="text-3xl font-bold">مرحباً بكم في Kishki Halal Supermarket</h1>
+    <p class="mt-2">أفضل المنتجات الحلال بأفضل الأسعار</p>
   </header>
 
-  <main class="max-w-5xl mx-auto p-4">
+  <!-- Main content -->
+  <main class="p-6">
+    <!-- Categories -->
+    <h2 class="text-2xl font-bold mb-4">الفئات</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      <!-- Product example -->
+      <div class="bg-white rounded shadow p-4 text-center">
+        <img src="https://via.placeholder.com/200" alt="Product" class="mx-auto mb-3 rounded">
+        <h3 class="font-bold text-lg">لحم بقر طازج</h3>
+        <p class="text-red-600 font-bold mt-2">20.00 CAD</p>
+        <button class="primary-btn mt-3" onclick="addToCart('لحم بقر طازج', 20)">أضف للسلة</button>
+      </div>
 
-    <section id="products" class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <!-- المنتجات ستُضاف هنا بالسكريبت -->
-    </section>
-
+      <div class="bg-white rounded shadow p-4 text-center">
+        <img src="https://via.placeholder.com/200" alt="Product" class="mx-auto mb-3 rounded">
+        <h3 class="font-bold text-lg">دجاج كامل</h3>
+        <p class="text-red-600 font-bold mt-2">12.00 CAD</p>
+        <button class="primary-btn mt-3" onclick="addToCart('دجاج كامل', 12)">أضف للسلة</button>
+      </div>
+    </div>
   </main>
+
+  <footer class="bg-gray-800 text-white text-center py-4 mt-6">
+    <p>© 2025 Kishki Halal Supermarket</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
