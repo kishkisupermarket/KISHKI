@@ -1,16 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Grocery - KISHKI HALAL SUPERMARKET</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    .btn-primary{background:#d32f2f;color:#fff;transition:all 0.3s ease}
-    .btn-primary:hover{background:#b71c1c;transform:translateY(-2px)}
-    .badge{min-width:1.5rem;min-height:1.5rem}
-    .product-card:hover{transform:translateY(-5px);box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}
-    
+    .btn-primary {
+      background: #d32f2f;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #b71c1c;
+      transform: translateY(-2px);
+    }
+    .badge {
+      min-width: 1.5rem;
+      min-height: 1.5rem;
+    }
+    .product-card {
+      transition: all 0.3s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    }
     .notification {
       position: fixed;
       top: 20px;
@@ -19,6 +34,7 @@
       color: white;
       padding: 12px 24px;
       border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       opacity: 0;
       transition: opacity 0.5s;
       z-index: 1000;
@@ -26,26 +42,59 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
+  <!-- Notification -->
   <div id="notification" class="notification"></div>
 
-  <!-- نفس الهيدر من index.html -->
+  <!-- Header (Same as index.html) -->
   <header class="bg-white sticky top-0 z-20 shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+      <button id="menu-toggle" class="hidden text-2xl md:hidden">☰</button>
+      
       <a href="index.html" class="font-extrabold text-lg md:text-2xl tracking-wide">
         KISHKI HALAL SUPERMARKET
       </a>
-      <!-- باقي الهيدر كما هو -->
+
+      <!-- Search -->
+      <div class="flex-1">
+        <form class="flex items-stretch gap-2">
+          <input type="search" placeholder="Search products..." 
+                 class="w-full border rounded px-3 py-2">
+          <button class="btn-primary rounded px-4">Search</button>
+        </form>
+      </div>
+
+      <!-- Cart -->
+      <a href="checkout.html" class="relative inline-flex items-center gap-2 px-3 py-2 border rounded hover:bg-gray-100">
+        <span>Cart</span>
+        <span id="cartBadge" class="badge rounded-full bg-red-600 text-white grid place-content-center text-xs px-1">0</span>
+      </a>
+
+      <!-- Admin -->
+      <a href="admin-login.html" class="px-3 py-2 rounded border hover:bg-gray-100">Admin</a>
     </div>
+
+    <!-- Mobile Menu -->
+    <nav id="mobile-menu" class="md:hidden hidden">
+      <div class="flex flex-col gap-2 p-4">
+        <a href="vegetables.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Vegetables</a>
+        <a href="grocery.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Grocery</a>
+        <a href="meat.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Meat</a>
+      </div>
+    </nav>
   </header>
 
   <main class="max-w-7xl mx-auto px-4 py-6">
-    <h1 class="text-2xl font-bold mb-6">GROCERY PRODUCTS</h1>
+    <!-- Navigation Links -->
+    <div class="flex gap-4 mb-6 overflow-x-auto pb-2">
+      <a href="vegetables.html" class="whitespace-nowrap px-4 py-2 border rounded hover:bg-gray-100">Vegetables</a>
+      <a href="grocery.html" class="whitespace-nowrap px-4 py-2 border rounded bg-gray-100 font-medium">Grocery</a>
+      <a href="meat.html" class="whitespace-nowrap px-4 py-2 border rounded hover:bg-gray-100">Meat</a>
+    </div>
 
-    <!-- قسم DRINKS -->
+    <!-- DRINKS Section -->
     <section class="mb-8">
-      <h2 class="text-xl font-semibold mb-4 border-b pb-2">DRINKS</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- منتج 1 -->
+      <h2 class="text-xl font-semibold mb-4 pb-2 border-b">DRINKS</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="product-card bg-white p-4 rounded shadow">
           <img src="https://images.unsplash.com/photo-1551029506-0807df4e2031?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8c29mdCUyMGRyaW5rfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" 
                alt="Pepsi Can" class="w-full h-48 object-cover rounded mb-3">
@@ -56,7 +105,6 @@
           </button>
         </div>
 
-        <!-- منتج 2 -->
         <div class="product-card bg-white p-4 rounded shadow">
           <img src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8anVpY2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
                alt="Orange Juice" class="w-full h-48 object-cover rounded mb-3">
@@ -69,11 +117,10 @@
       </div>
     </section>
 
-    <!-- قسم BAKERY -->
+    <!-- BAKERY Section -->
     <section class="mb-8">
-      <h2 class="text-xl font-semibold mb-4 border-b pb-2">BAKERY</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- منتج 1 -->
+      <h2 class="text-xl font-semibold mb-4 pb-2 border-b">BAKERY</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="product-card bg-white p-4 rounded shadow">
           <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YnJlYWR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
                alt="White Bread" class="w-full h-48 object-cover rounded mb-3">
@@ -84,7 +131,6 @@
           </button>
         </div>
 
-        <!-- منتج 2 -->
         <div class="product-card bg-white p-4 rounded shadow">
           <img src="https://images.unsplash.com/photo-1608190003443-86ab6a060672?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNha2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
                alt="Chocolate Cake" class="w-full h-48 object-cover rounded mb-3">
@@ -98,13 +144,30 @@
     </section>
   </main>
 
-  <!-- نفس الفوتر من index.html -->
+  <!-- Footer -->
   <footer class="bg-white border-t">
-    <!-- ... -->
+    <div class="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-6">
+      <div>
+        <h4 class="text-lg font-bold mb-2">Store Information</h4>
+        <p>Address: 468 ALBERT ST, WATERLOO, ON</p>
+        <p>Phone: (647) 286-4223</p>
+        <p>Email: kishkisupermarket@hotmail.com</p>
+      </div>
+      <div class="w-full">
+        <iframe class="w-full h-56 rounded" loading="lazy" allowfullscreen
+          src="https://www.google.com/maps?q=468+ALBERT+ST,+WATERLOO,+ON&output=embed"></iframe>
+      </div>
+    </div>
+    <div class="text-center text-xs text-gray-500 py-4">© 2025 KISHKI HALAL SUPERMARKET</div>
   </footer>
 
   <script>
-    // دالة الإشعار
+    // Mobile Menu Toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+
+    // Notification System
     function showNotification(message) {
       const notification = document.getElementById('notification');
       notification.textContent = message;
@@ -112,11 +175,12 @@
       setTimeout(() => notification.style.opacity = 0, 2000);
     }
 
-    // إضافة للسلة
+    // Add to Cart Functionality
     document.querySelectorAll('.add-to-cart').forEach(button => {
       button.addEventListener('click', function() {
-        showNotification('تمت الإضافة إلى السلة بنجاح');
-        // يمكنك إضافة منطق زيادة عداد السلة هنا
+        const currentCount = parseInt(document.getElementById('cartBadge').textContent);
+        document.getElementById('cartBadge').textContent = currentCount + 1;
+        showNotification('Item added to cart');
       });
     });
   </script>
