@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vegetables • KISHKI HALAL SUPERMARKET</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .btn-primary{background:#d32f2f;color:#fff}
+    .btn-primary:hover{background:#b71c1c}
+    .badge{min-width:1.5rem;min-height:1.5rem}
+  </style>
+</head>
+<body class="bg-gray-50">
+  <header class="bg-white shadow">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="index.html" class="font-extrabold text-lg md:text-2xl">KISHKI HALAL SUPERMARKET</a>
+      <div class="flex-1"></div>
+      <a href="checkout.html" class="relative inline-flex items-center gap-2 px-3 py-2 border rounded hover:bg-gray-100">
+        <span>Cart</span>
+        <span id="cartBadge" class="badge rounded-full bg-red-600 text-white grid place-content-center text-xs px-1"></span>
+      </a>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-4">Vegetables</h1>
+    <div id="vegetablesList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
