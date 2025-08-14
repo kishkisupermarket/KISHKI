@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meat - KISHKI HALAL SUPERMARKET</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .btn-primary{background:#d32f2f;color:#fff;transition:all 0.3s ease}
+    .btn-primary:hover{background:#b71c1c;transform:translateY(-2px)}
+    .badge{min-width:1.5rem;min-height:1.5rem}
+    .product-card:hover{transform:translateY(-5px);box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}
+    
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  <div id="notification" class="notification"></div>
+
+  <!-- نفس الهيدر من index.html -->
+  <header class="bg-white sticky top-0 z-20 shadow">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3">
+      <a href="index.html" class="font-extrabold text-lg md:text-2xl tracking-wide">
+        KISHKI HALAL SUPERMARKET
+      </a>
+      <!-- باقي الهيدر كما هو -->
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 py-6">
+    <h1 class="text-2xl font-bold mb-6">MEAT PRODUCTS</h1>
+
+    <!-- قسم CHICKEN -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 border-b pb-2">CHICKEN</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- منتج 1 -->
+        <div class="product-card bg-white p-4 rounded shadow">
+          <img src="https://images.unsplash.com/photo-1603048719537-1c1b6d46a534?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2hpY2tlbiUyMGJyZWFzdHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+               alt="Chicken Breast" class="w-full h-48 object-cover rounded mb-3">
+          <h3 class="font-bold">Chicken Breast</h3>
+          <p class="text-red-600 font-bold my-2">$7.99/kg</p>
+          <button class="add-to-cart btn-primary w-full py-2 rounded">
+            Add to Cart
+          </button>
+        </div>
+
+        <!-- منتج 2 -->
+        <div class="product-card bg-white p-4 rounded shadow">
+          <img src="https://images.unsplash.com/photo-1602253057119-44d745d9b860?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2hpY2tlbiUyMGxlZ3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" 
+               alt="Chicken Legs" class="w-full h-48 object-cover rounded mb-3">
+          <h3 class="font-bold">Chicken Legs</h3>
+          <p class="text-red-600 font-bold my-2">$5.99/kg</p>
+          <button class="add-to-cart btn-primary w-full py-2 rounded">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم BEEF -->
+    <section class="mb-8">
+      <h2 class="text-xl font-semibold mb-4 border-b pb-2">BEEF</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- منتج 1 -->
+        <div class="product-card bg-white p-4 rounded shadow">
+          <img src="https://images.unsplash.com/photo-1602922960051-764b4f81e1d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8YmVlZiUyMHN0ZWFrfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" 
+               alt="Beef Steak" class="w-full h-48 object-cover rounded mb-3">
+          <h3 class="font-bold">Beef Steak</h3>
+          <p class="text-red-600 font-bold my-2">$15.99/kg</p>
+          <button class="add-to-cart btn-primary w-full py-2 rounded">
+            Add to Cart
+          </button>
+        </div>
+
+        <!-- منتج 2 -->
+        <div class="product-card bg-white p-4 rounded shadow">
+          <img src="https://images.unsplash.com/photo-1603105037880-880cd4edfb0d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Z3JvdW5kJTIwYmVlZnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" 
+               alt="Ground Beef" class="w-full h-48 object-cover rounded mb-3">
+          <h3 class="font-bold">Ground Beef</h3>
+          <p class="text-red-600 font-bold my-2">$12.99/kg</p>
+          <button class="add-to-cart btn-primary w-full py-2 rounded">
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- نفس الفوتر من index.html -->
+  <footer class="bg-white border-t">
+    <!-- ... -->
+  </footer>
+
+  <script>
+    // دالة الإشعار
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.style.opacity = 1;
+      setTimeout(() => notification.style.opacity = 0, 2000);
+    }
+
+    // إضافة للسلة
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function() {
+        showNotification('تمت الإضافة إلى السلة بنجاح');
+        // يمكنك إضافة منطق زيادة عداد السلة هنا
+      });
+    });
+  </script>
+</body>
+</html>
