@@ -4,8 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>KISHKI HALAL SUPERMARKET - Fresh Halal Groceries & Meat</title>
-  <meta name="description" content="Kishki Halal Supermarket - Fresh halal groceries, meat & vegetables in Toronto. Best prices with daily offers!">
-  <meta name="keywords" content="halal supermarket, halal meat, arabic grocery, middle eastern food">
+  <meta name="description" content="Kishki Halal Supermarket - Fresh halal groceries, meat & vegetables in Waterloo. Best prices with daily offers!">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .btn-primary{background:#d32f2f;color:#fff;transition:all 0.3s ease}
@@ -13,6 +12,21 @@
     .badge{min-width:1.5rem;min-height:1.5rem}
     .section-title{border-bottom:2px solid #eee;padding-bottom:.25rem}
     .product-card:hover{transform:translateY(-5px);box-shadow:0 10px 15px -3px rgba(0,0,0,0.1)}
+    
+    /* Notification Style */
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 1000;
+    }
     
     /* Mobile Styles */
     @media (max-width: 768px) {
@@ -45,6 +59,9 @@
   </style>
 </head>
 <body class="bg-gray-50 text-gray-900">
+  <!-- Notification Element -->
+  <div id="notification" class="notification"></div>
+
   <!-- Header -->
   <header class="bg-white sticky top-0 z-20 shadow">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center gap-3 header-content">
@@ -69,7 +86,7 @@
         <a href="checkout.html" class="relative inline-flex items-center gap-2 px-3 py-2 border rounded hover:bg-gray-100">
           <span>Cart</span>
           <span id="cartBadge"
-                class="badge rounded-full bg-red-600 text-white grid place-content-center text-xs px-1"></span>
+                class="badge rounded-full bg-red-600 text-white grid place-content-center text-xs px-1">0</span>
         </a>
         <a href="admin-login.html" class="px-3 py-2 rounded border hover:bg-gray-100">Admin</a>
       </div>
@@ -79,11 +96,11 @@
     <nav id="mobile-menu" class="md:hidden">
       <div class="flex flex-col gap-2 p-4">
         <a href="vegetables.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Vegetables</a>
-        <a href="#grocery" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Grocery</a>
-        <a href="#meat" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Meat</a>
+        <a href="grocery.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Grocery</a>
+        <a href="meat.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Meat</a>
         <a href="checkout.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100 flex items-center justify-between">
           <span>Cart</span>
-          <span id="mobile-cartBadge" class="badge rounded-full bg-red-600 text-white grid place-content-center text-xs px-1"></span>
+          <span id="mobile-cartBadge" class="badge rounded-full bg-red-600 text-white grid place-content-center text-xs px-1">0</span>
         </a>
         <a href="admin-login.html" class="w-full text-left px-3 py-2 border rounded hover:bg-gray-100">Admin</a>
       </div>
@@ -116,46 +133,21 @@
     <h2 class="text-2xl font-bold section-title mb-4">Categories</h2>
 
     <!-- Category: GROCERY -->
-    <section class="mb-6" id="grocery">
-      <button type="button" data-toggle="#grocerySub"
-              class="w-full flex justify-between items-center bg-white rounded p-4 shadow hover:shadow-md transition-all">
+    <section class="mb-6">
+      <a href="grocery.html"
+         class="w-full flex justify-between items-center bg-white rounded p-4 shadow hover:shadow-md transition-all block">
         <span class="font-semibold">GROCERY</span>
-        <span class="text-gray-500">DRINKS, BAKERY, FROZEN, FOOD</span>
-      </button>
-      <div id="grocerySub" class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
-        <!-- DRINKS -->
-        <div class="bg-white rounded shadow p-4 product-card transition-all">
-          <h3 class="font-semibold mb-3">DRINKS</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="drinksList"></div>
-        </div>
-        <!-- BAKERY -->
-        <div class="bg-white rounded shadow p-4 product-card transition-all">
-          <h3 class="font-semibold mb-3">BAKERY</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="bakeryList"></div>
-        </div>
-        <!-- FROZEN -->
-        <div class="bg-white rounded shadow p-4 product-card transition-all">
-          <h3 class="font-semibold mb-3">FROZEN</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="frozenList"></div>
-        </div>
-        <!-- FOOD -->
-        <div class="bg-white rounded shadow p-4 product-card transition-all">
-          <h3 class="font-semibold mb-3">FOOD</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" id="foodList"></div>
-        </div>
-      </div>
+        <span class="text-gray-500">DRINKS, BAKERY, FROZEN, FOOD →</span>
+      </a>
     </section>
 
     <!-- Category: MEAT -->
-    <section class="mb-6" id="meat">
-      <button type="button" data-toggle="#meatSub"
-              class="w-full flex justify-between items-center bg-white rounded p-4 shadow hover:shadow-md transition-all">
+    <section class="mb-6">
+      <a href="meat.html"
+         class="w-full flex justify-between items-center bg-white rounded p-4 shadow hover:shadow-md transition-all block">
         <span class="font-semibold">MEAT</span>
-        <span class="text-gray-500">CHICKEN, VEAL, BEEF, FISH, LAMB, GOAT, OTHERS</span>
-      </button>
-      <div id="meatSub" class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
-        <!-- باقي المحتوى كما هو -->
-      </div>
+        <span class="text-gray-500">CHICKEN, VEAL, BEEF, FISH, LAMB, GOAT →</span>
+      </a>
     </section>
 
     <!-- Category: VEGETABLE -->
@@ -163,7 +155,7 @@
       <a href="vegetables.html"
          class="w-full flex justify-between items-center bg-white rounded p-4 shadow hover:shadow-md transition-all block">
         <span class="font-semibold">VEGETABLE</span>
-        <span class="text-gray-500">Go to vegetables page →</span>
+        <span class="text-gray-500">View all vegetables →</span>
       </a>
     </section>
   </main>
@@ -172,7 +164,7 @@
   <section class="bg-green-700 text-white py-6">
     <div class="max-w-7xl mx-auto px-4 text-center">
       <h3 class="text-xl font-bold mb-2">Need Help? Call Us Now!</h3>
-      <a href="tel:+966501234567" class="inline-block bg-white text-green-700 px-6 py-2 rounded font-bold hover:bg-gray-100">+966 50 123 4567</a>
+      <a href="tel:6472864223" class="inline-block bg-white text-green-700 px-6 py-2 rounded font-bold hover:bg-gray-100">(647) 286-4223</a>
     </div>
   </section>
 
@@ -181,19 +173,23 @@
     <div class="max-w-7xl mx-auto px-4 py-8 grid md:grid-cols-2 gap-6">
       <div>
         <h4 class="text-lg font-bold mb-2">Store Information</h4>
-        <p>Address: 123 Main St, Toronto, ON</p>
-        <p>Phone: (416) 123-4567</p>
-        <p>Email: info@kishkihalal.com</p>
+        <p>Address: 468 ALBERT ST, WATERLOO, ON</p>
+        <p>Phone: <a href="tel:6472864223" class="text-blue-600">(647) 286-4223</a></p>
+        <p>Email: <a href="mailto:kishkisupermarket@hotmail.com" class="text-blue-600">kishkisupermarket@hotmail.com</a></p>
         
         <!-- Social Media -->
         <div class="mt-4 flex gap-3">
           <a href="https://facebook.com" target="_blank" class="text-gray-700 hover:text-blue-600">
             <span class="sr-only">Facebook</span>
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">...</svg>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+            </svg>
           </a>
-          <a href="https://wa.me/966501234567" target="_blank" class="text-gray-700 hover:text-green-600">
+          <a href="https://wa.me/16472864223" target="_blank" class="text-gray-700 hover:text-green-600">
             <span class="sr-only">WhatsApp</span>
-            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">...</svg>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
+            </svg>
           </a>
         </div>
       </div>
@@ -203,7 +199,7 @@
           loading="lazy"
           allowfullscreen
           referrerpolicy="no-referrer-when-downgrade"
-          src="https://www.google.com/maps?q=Toronto%20ON&output=embed"></iframe>
+          src="https://www.google.com/maps?q=468+ALBERT+ST,+WATERLOO,+ON&output=embed"></iframe>
       </div>
     </div>
     <div class="text-center text-xs text-gray-500 py-4">© 2025 KISHKI HALAL SUPERMARKET. All rights reserved.</div>
@@ -217,11 +213,27 @@
       menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
     });
 
-    // Toggle Category Sections
-    document.querySelectorAll('[data-toggle]').forEach(button => {
+    // Notification System
+    function showNotification(message) {
+      const notification = document.getElementById('notification');
+      notification.textContent = message;
+      notification.style.opacity = 1;
+      
+      setTimeout(() => {
+        notification.style.opacity = 0;
+      }, 2000); // 2 seconds
+    }
+
+    // Add to Cart Functionality (Example for product pages)
+    document.querySelectorAll('.add-to-cart').forEach(button => {
       button.addEventListener('click', function() {
-        const target = this.getAttribute('data-toggle');
-        document.querySelector(target).classList.toggle('hidden');
+        // Update cart count
+        const currentCount = parseInt(document.getElementById('cartBadge').textContent);
+        document.getElementById('cartBadge').textContent = currentCount + 1;
+        document.getElementById('mobile-cartBadge').textContent = currentCount + 1;
+        
+        // Show notification
+        showNotification('Added to cart successfully!');
       });
     });
   </script>
