@@ -1,58 +1,188 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kishki Halal Supermarket</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KISHKI HALAL SUPERMARKET</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="icon" href="data:," />
   <style>
-    .primary-btn {
-      background-color: #d32f2f;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: bold;
-      transition: background 0.3s;
+    .brand { font-weight: 800; letter-spacing: 1px; }
+    .btn-primary { background:#d32f2f; color:#fff; }
+    .btn-primary:hover { background:#b71c1c; }
+    .section-title { border-bottom: 2px solid #eee; }
+    .badge {
+      position: absolute; top: -6px; right: -8px;
+      background:#d32f2f; color:#fff; font-size:12px;
+      border-radius: 9999px; padding: 2px 6px;
+      min-width: 20px; text-align: center;
     }
-    .primary-btn:hover {
-      background-color: #b71c1c;
-    }
+    details > summary::-webkit-details-marker { display:none; }
+    summary { cursor:pointer; }
   </style>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 text-gray-900">
 
-  <!-- Banner -->
-  <header class="bg-red-600 text-white text-center py-6 shadow-md">
-    <h1 class="text-3xl font-bold">مرحباً بكم في Kishki Halal Supermarket</h1>
-    <p class="mt-2">أفضل المنتجات الحلال بأفضل الأسعار</p>
+  <!-- Header -->
+  <header class="bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center gap-4">
+      <!-- Brand -->
+      <a href="index.html" class="brand text-xl md:text-2xl">KISHKI HALAL SUPERMARKET</a>
+
+      <!-- Search -->
+      <div class="flex-1">
+        <form id="searchForm" class="relative">
+          <input id="searchInput" type="text" placeholder="Search for a product..."
+                 class="w-full border rounded-lg py-2 pl-3 pr-10 focus:outline-none focus:ring-2 focus:ring-red-300" />
+          <button type="submit" class="absolute right-1 top-1/2 -translate-y-1/2 px-3 py-1 rounded btn-primary">Search</button>
+        </form>
+      </div>
+
+      <!-- Cart -->
+      <a href="checkout.html" class="relative inline-flex items-center gap-2 px-3 py-2 border rounded-lg hover:bg-gray-100">
+        <span>Cart</span>
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round"
+               stroke-linejoin="round" stroke-width="2"
+               d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m12-9l2 9M9 22a1 1 0 100-2 1 1 0 000 2zm8 0a1 1 0 100-2 1 1 0 000 2z"/></svg>
+          <span id="cartCount" class="badge">0</span>
+        </div>
+      </a>
+
+      <!-- Admin -->
+      <a href="admin-login.html" class="px-3 py-2 rounded-lg border btn-primary">Admin</a>
+    </div>
   </header>
 
-  <!-- Main content -->
-  <main class="p-6">
-    <!-- Categories -->
-    <h2 class="text-2xl font-bold mb-4">الفئات</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      <!-- Product example -->
-      <div class="bg-white rounded shadow p-4 text-center">
-        <img src="https://via.placeholder.com/200" alt="Product" class="mx-auto mb-3 rounded">
-        <h3 class="font-bold text-lg">لحم بقر طازج</h3>
-        <p class="text-red-600 font-bold mt-2">20.00 CAD</p>
-        <button class="primary-btn mt-3" onclick="addToCart('لحم بقر طازج', 20)">أضف للسلة</button>
+  <!-- Main -->
+  <main class="max-w-7xl mx-auto px-4 py-8">
+
+    <!-- Grocery -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold section-title pb-2 mb-4">GROCERY</h2>
+
+      <!-- Subcats -->
+      <div class="grid md:grid-cols-2 gap-6">
+
+        <!-- DRINKS -->
+        <details open class="bg-white rounded-lg shadow p-4">
+          <summary class="flex items-center justify-between">
+            <span class="font-semibold text-lg">DRINKS</span>
+            <span class="text-sm text-gray-500">2 items</span>
+          </summary>
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <!-- Cola -->
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1581382575275-97901c2635b7?q=80&w=600&auto=format&fit=crop"
+                   alt="Cola" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Classic Cola (355ml)</h3>
+              <p class="text-red-600 font-semibold">$1.49</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Classic Cola (355ml)', 1.49)">Add to cart</button>
+            </div>
+            <!-- Orange Juice -->
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1571072070365-3d7c7aeac507?q=80&w=600&auto=format&fit=crop"
+                   alt="Orange Juice" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Orange Juice (1L)</h3>
+              <p class="text-red-600 font-semibold">$3.99</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Orange Juice (1L)', 3.99)">Add to cart</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- BAKERY -->
+        <details class="bg-white rounded-lg shadow p-4">
+          <summary class="flex items-center justify-between">
+            <span class="font-semibold text-lg">BAKERY</span>
+            <span class="text-sm text-gray-500">2 items</span>
+          </summary>
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1546549039-49e6757c10b0?q=80&w=600&auto=format&fit=crop"
+                   alt="Pita Bread" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Fresh Pita (6 pcs)</h3>
+              <p class="text-red-600 font-semibold">$2.50</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Fresh Pita (6 pcs)', 2.50)">Add to cart</button>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1541599188778-a54f6b3ac0eb?q=80&w=600&auto=format&fit=crop"
+                   alt="Baklava" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Baklava (250g)</h3>
+              <p class="text-red-600 font-semibold">$5.99</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Baklava (250g)', 5.99)">Add to cart</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- FROZEN -->
+        <details class="bg-white rounded-lg shadow p-4">
+          <summary class="flex items-center justify-between">
+            <span class="font-semibold text-lg">FROZEN</span>
+            <span class="text-sm text-gray-500">2 items</span>
+          </summary>
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1613478223719-538bb1a4e92d?q=80&w=600&auto=format&fit=crop"
+                   alt="Frozen Peas" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Frozen Peas (1kg)</h3>
+              <p class="text-red-600 font-semibold">$4.49</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Frozen Peas (1kg)', 4.49)">Add to cart</button>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1604908176997-2847a6373fdb?q=80&w=600&auto=format&fit=crop"
+                   alt="Frozen Pizza" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Frozen Pizza</h3>
+              <p class="text-red-600 font-semibold">$6.99</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Frozen Pizza', 6.99)">Add to cart</button>
+            </div>
+          </div>
+        </details>
+
+        <!-- FOOD -->
+        <details class="bg-white rounded-lg shadow p-4">
+          <summary class="flex items-center justify-between">
+            <span class="font-semibold text-lg">FOOD</span>
+            <span class="text-sm text-gray-500">2 items</span>
+          </summary>
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1604908812833-6c14f0b0ec98?q=80&w=600&auto=format&fit=crop"
+                   alt="Olive Oil" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Olive Oil (1L)</h3>
+              <p class="text-red-600 font-semibold">$9.99</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Olive Oil (1L)', 9.99)">Add to cart</button>
+            </div>
+            <div class="bg-gray-50 rounded-lg p-3">
+              <img src="https://images.unsplash.com/photo-1617195737496-a53f25e71859?q=80&w=600&auto=format&fit=crop"
+                   alt="Basmati Rice" class="w-full h-40 object-cover rounded-md">
+              <h3 class="font-semibold mt-2">Basmati Rice (5kg)</h3>
+              <p class="text-red-600 font-semibold">$14.99</p>
+              <button class="btn-primary px-3 py-2 rounded mt-2 w-full"
+                      onclick="addToCart('Basmati Rice (5kg)', 14.99)">Add to cart</button>
+            </div>
+          </div>
+        </details>
       </div>
+    </section>
 
-      <div class="bg-white rounded shadow p-4 text-center">
-        <img src="https://via.placeholder.com/200" alt="Product" class="mx-auto mb-3 rounded">
-        <h3 class="font-bold text-lg">دجاج كامل</h3>
-        <p class="text-red-600 font-bold mt-2">12.00 CAD</p>
-        <button class="primary-btn mt-3" onclick="addToCart('دجاج كامل', 12)">أضف للسلة</button>
-      </div>
-    </div>
-  </main>
+    <!-- MEAT -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold section-title pb-2 mb-4">MEAT</h2>
 
-  <footer class="bg-gray-800 text-white text-center py-4 mt-6">
-    <p>© 2025 Kishki Halal Supermarket</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+      <div class="grid md:grid-cols-2 gap-6">
+        <!-- CHICKEN -->
+        <details open class="bg-white rounded-lg shadow p-4">
+          <summary class="flex items-center justify-between">
+            <span class="font-semibold text-lg">CHICKEN</span>
+            <span class="text-sm text-gray-500">2 items</span>
+          </summary>
+          <div class="grid sm:grid-cols-2 gap-4 mt-4">
+            <div class="
