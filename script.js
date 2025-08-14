@@ -1,33 +1,33 @@
-// مثال بيانات منتجات ثابتة - يمكنك تعديلها أو جلبها من localStorage
-const products = [
-  { id: 1, name: "Frozen Chicken", price: 10.99, category: "Freezer", barcode: "12345" },
-  { id: 2, name: "Fresh Juice", price: 4.99, category: "Juice", barcode: "23456" },
-  { id: 3, name: "Lamb Meat", price: 15.99, category: "Lamb", barcode: "34567" },
-];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-const productsContainer = document.getElementById("products");
+function addToCart(name, price) {
+  const existing = cart.find(item => item.name === name);
+  if (existing) {
+    existing.qty++;
+  } else {
+    cart.push({ name, price, qty: 1 });
+  }
+  localStorage.setItem('cart', JSON.stringify(cart));
+  alert("تمت الإضافة للسلة");
+}
 
-function renderProducts() {
-  if (!productsContainer) return;
-  productsContainer.innerHTML = "";
-  products.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "bg-white p-4 rounded shadow";
-    card.innerHTML = `
-      <h3 class="font-bold text-lg">${p.name}</h3>
-      <p>Category: ${p.category}</p>
-      <p>Price: $${p.price.toFixed(2)}</p>
-      <p>Barcode: ${p.barcode}</p>
-      <button onclick="addToCart(${p.id})" class="mt-2 bg-green-700 text-white py-1 px-3 rounded hover:bg-green-800">Add to Cart</button>
-    `;
-    productsContainer.appendChild(card);
+function renderCart() {
+  const cartItemsDiv = document.getElementById('cartItems');
+  const totalPriceEl = document.getElementById('totalPrice');
+  if (!cartItemsDiv || !totalPriceEl) return;
+
+  cartItemsDiv.innerHTML = '';
+  let total = 0;
+
+  cart.forEach(item => {
+    const div = document.createElement('div');
+    div.classList.add('flex', 'justify-between', 'mb-2');
+    div.innerHTML = `<span>${item.name} × ${item.qty}</span><span>${item.price * item.qty} CAD</span>`;
+    cartItemsDiv.appendChild(div);
+    total += item.price * item.qty;
   });
+
+  totalPriceEl.textContent = total.toFixed(2);
 }
 
-function addToCart(productId) {
-  alert("Added to cart product ID: " + productId);
-  // هنا يمكنك إضافة الكود الخاص بإدارة سلة التسوق
-}
-
-renderProducts();
-
+document.addEventListener('DOMContentLoaded', renderCart);
